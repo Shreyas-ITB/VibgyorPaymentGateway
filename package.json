@@ -1,0 +1,20 @@
+{
+  "name": "vibgyor-payment-gateway",
+  "version": "1.0.0",
+  "description": "Vibgyor Payment Gateway - Full Stack Application",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "test:backend": "npm test --prefix backend",
+    "test:frontend": "npm test --prefix frontend",
+    "test:all": "npm run test:backend && npm run test:frontend",
+    "build:backend": "npm run build --prefix backend",
+    "build:frontend": "npm run build --prefix frontend",
+    "build:all": "npm run build:backend && npm run build:frontend"
+  },
+  "keywords": ["payment", "gateway", "angular", "nodejs", "razorpay", "pinelabs"],
+  "author": "",
+  "license": "ISC"
+}
