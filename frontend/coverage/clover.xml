@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1771055163077" clover="3.2.0">
+  <project timestamp="1771055163078" name="All files">
+    <metrics statements="280" coveredstatements="235" conditionals="111" coveredconditionals="89" methods="62" coveredmethods="54" elements="453" coveredelements="378" complexity="0" loc="280" ncloc="280" packages="9" files="15" classes="15"/>
+    <package name="app">
+      <metrics statements="8" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="app.component.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\app.component.ts">
+        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="0" type="stmt"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+      </file>
+      <file name="theme-test.component.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\theme-test.component.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="90" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.components">
+      <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="index.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\components\index.ts">
+        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="0" type="stmt"/>
+        <line num="2" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.components.billing-cycle-toggle">
+      <metrics statements="7" coveredstatements="7" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <file name="billing-cycle-toggle.component.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\components\billing-cycle-toggle\billing-cycle-toggle.component.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="132" type="stmt"/>
+        <line num="13" count="132" type="stmt"/>
+        <line num="16" count="1713" type="cond" truecount="1" falsecount="0"/>
+        <line num="17" count="612" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.components.pricing-card">
+      <metrics statements="14" coveredstatements="14" conditionals="5" coveredconditionals="5" methods="4" coveredmethods="4"/>
+      <file name="pricing-card.component.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\components\pricing-card\pricing-card.component.ts">
+        <metrics statements="14" coveredstatements="14" conditionals="5" coveredconditionals="5" methods="4" coveredmethods="4"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="14" count="33" type="stmt"/>
+        <line num="15" count="33" type="stmt"/>
+        <line num="17" count="33" type="stmt"/>
+        <line num="18" count="33" type="stmt"/>
+        <line num="21" count="1858" type="cond" truecount="1" falsecount="0"/>
+        <line num="22" count="207" type="stmt"/>
+        <line num="24" count="1651" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="1651" type="stmt"/>
+        <line num="31" count="1650" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.models">
+      <metrics statements="11" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <file name="api.models.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\models\api.models.ts">
+        <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="61" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="7" type="stmt"/>
+        <line num="63" count="7" type="stmt"/>
+        <line num="64" count="7" type="stmt"/>
+        <line num="65" count="7" type="stmt"/>
+        <line num="66" count="7" type="stmt"/>
+        <line num="67" count="7" type="stmt"/>
+        <line num="68" count="7" type="stmt"/>
+      </file>
+      <file name="index.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\models\index.ts">
+        <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.pages">
+      <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="index.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\pages\index.ts">
+        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="6" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.pages.pricing-page">
+      <metrics statements="61" coveredstatements="51" conditionals="22" coveredconditionals="14" methods="12" coveredmethods="12"/>
+      <file name="pricing-page.component.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\pages\pricing-page\pricing-page.component.ts">
+        <metrics statements="61" coveredstatements="51" conditionals="22" coveredconditionals="14" methods="12" coveredmethods="12"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="21" count="44" type="stmt"/>
+        <line num="22" count="44" type="stmt"/>
+        <line num="23" count="44" type="stmt"/>
+        <line num="24" count="44" type="stmt"/>
+        <line num="26" count="44" type="stmt"/>
+        <line num="31" count="44" type="stmt"/>
+        <line num="34" count="1830" type="stmt"/>
+        <line num="41" count="1830" type="stmt"/>
+        <line num="43" count="1830" type="stmt"/>
+        <line num="46" count="1830" type="cond" truecount="1" falsecount="0"/>
+        <line num="47" count="6" type="stmt"/>
+        <line num="48" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="49" count="6" type="stmt"/>
+        <line num="50" count="6" type="cond" truecount="2" falsecount="2"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="53" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="54" count="6" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="62" count="1824" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="75" count="6" type="stmt"/>
+        <line num="76" count="6" type="stmt"/>
+        <line num="78" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="79" count="6" type="stmt"/>
+        <line num="80" count="6" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="95" count="2" type="stmt"/>
+        <line num="102" count="1211" type="cond" truecount="2" falsecount="1"/>
+        <line num="103" count="0" type="stmt"/>
+        <line num="106" count="2487" type="stmt"/>
+        <line num="107" count="1211" type="cond" truecount="1" falsecount="0"/>
+        <line num="108" count="101" type="stmt"/>
+        <line num="109" count="101" type="stmt"/>
+        <line num="112" count="1110" type="cond" truecount="2" falsecount="0"/>
+        <line num="116" count="1110" type="stmt"/>
+        <line num="123" count="1110" type="cond" truecount="0" falsecount="1"/>
+        <line num="124" count="0" type="stmt"/>
+        <line num="127" count="1110" type="stmt"/>
+        <line num="128" count="1110" type="stmt"/>
+        <line num="131" count="1110" type="stmt"/>
+        <line num="139" count="1104" type="stmt"/>
+        <line num="140" count="1104" type="stmt"/>
+        <line num="144" count="6" type="stmt"/>
+        <line num="145" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="146" count="6" type="stmt"/>
+        <line num="154" count="802" type="cond" truecount="0" falsecount="1"/>
+        <line num="155" count="0" type="stmt"/>
+        <line num="159" count="802" type="stmt"/>
+        <line num="160" count="802" type="stmt"/>
+        <line num="161" count="802" type="stmt"/>
+        <line num="168" count="4" type="cond" truecount="1" falsecount="1"/>
+      </file>
+    </package>
+    <package name="app.services">
+      <metrics statements="174" coveredstatements="151" conditionals="81" coveredconditionals="67" methods="43" coveredmethods="36"/>
+      <file name="index.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\services\index.ts">
+        <metrics statements="7" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="0"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+      </file>
+      <file name="payment-sdk-loader.service.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\services\payment-sdk-loader.service.ts">
+        <metrics statements="34" coveredstatements="31" conditionals="13" coveredconditionals="11" methods="9" coveredmethods="8"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="32" count="5" type="stmt"/>
+        <line num="38" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="4" type="stmt"/>
+        <line num="56" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="57" count="2" type="stmt"/>
+        <line num="58" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="69" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="70" count="6" type="stmt"/>
+        <line num="71" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="72" count="2" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="84" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="94" count="5" type="stmt"/>
+        <line num="103" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="120" count="5" type="stmt"/>
+        <line num="121" count="5" type="stmt"/>
+        <line num="123" count="4" type="stmt"/>
+        <line num="125" count="0" type="stmt"/>
+        <line num="132" count="4" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
+        <line num="136" count="1" type="stmt"/>
+        <line num="151" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="152" count="2" type="stmt"/>
+        <line num="153" count="2" type="stmt"/>
+        <line num="158" count="2" type="stmt"/>
+        <line num="167" count="0" type="stmt"/>
+        <line num="168" count="0" type="stmt"/>
+      </file>
+      <file name="payment.service.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\services\payment.service.ts">
+        <metrics statements="65" coveredstatements="59" conditionals="32" coveredconditionals="22" methods="20" coveredmethods="20"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
+        <line num="25" count="30" type="stmt"/>
+        <line num="26" count="30" type="stmt"/>
+        <line num="29" count="30" type="stmt"/>
+        <line num="30" count="30" type="stmt"/>
+        <line num="33" count="30" type="stmt"/>
+        <line num="43" count="19" type="stmt"/>
+        <line num="47" count="25" type="cond" truecount="4" falsecount="0"/>
+        <line num="48" count="21" type="stmt"/>
+        <line num="49" count="21" type="stmt"/>
+        <line num="50" count="21" type="stmt"/>
+        <line num="53" count="4" type="stmt"/>
+        <line num="71" count="14" type="stmt"/>
+        <line num="77" count="14" type="stmt"/>
+        <line num="99" count="5" type="stmt"/>
+        <line num="101" count="5" type="stmt"/>
+        <line num="104" count="4" type="stmt"/>
+        <line num="112" count="2" type="stmt"/>
+        <line num="122" count="2" type="stmt"/>
+        <line num="123" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="151" count="2" type="stmt"/>
+        <line num="152" count="2" type="stmt"/>
+        <line num="154" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="155" count="1" type="stmt"/>
+        <line num="162" count="1" type="stmt"/>
+        <line num="163" count="1" type="stmt"/>
+        <line num="165" count="0" type="stmt"/>
+        <line num="169" count="1" type="stmt"/>
+        <line num="182" count="2" type="cond" truecount="1" falsecount="2"/>
+        <line num="183" count="2" type="stmt"/>
+        <line num="201" count="5" type="stmt"/>
+        <line num="208" count="5" type="stmt"/>
+        <line num="223" count="403" type="stmt"/>
+        <line num="224" count="403" type="stmt"/>
+        <line num="225" count="403" type="stmt"/>
+        <line num="226" count="403" type="stmt"/>
+        <line num="229" count="403" type="stmt"/>
+        <line num="239" count="504" type="stmt"/>
+        <line num="240" count="504" type="stmt"/>
+        <line num="241" count="504" type="stmt"/>
+        <line num="244" count="504" type="stmt"/>
+        <line num="254" count="10" type="stmt"/>
+        <line num="256" count="10" type="cond" truecount="1" falsecount="1"/>
+        <line num="258" count="0" type="stmt"/>
+        <line num="259" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="261" count="3" type="stmt"/>
+        <line num="262" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="264" count="3" type="stmt"/>
+        <line num="265" count="4" type="cond" truecount="3" falsecount="1"/>
+        <line num="267" count="4" type="stmt"/>
+        <line num="268" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="269" count="3" type="stmt"/>
+        <line num="271" count="1" type="stmt"/>
+        <line num="275" count="0" type="stmt"/>
+        <line num="276" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="277" count="0" type="stmt"/>
+        <line num="279" count="0" type="stmt"/>
+        <line num="283" count="10" type="stmt"/>
+      </file>
+      <file name="pricing-data-parser.service.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\app\services\pricing-data-parser.service.ts">
+        <metrics statements="68" coveredstatements="61" conditionals="36" coveredconditionals="34" methods="8" coveredmethods="8"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="43" count="3639" type="stmt"/>
+        <line num="45" count="3639" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="3539" type="stmt"/>
+        <line num="49" count="3539" type="cond" truecount="1" falsecount="0"/>
+        <line num="50" count="746" type="stmt"/>
+        <line num="60" count="2793" type="stmt"/>
+        <line num="61" count="8379" type="stmt"/>
+        <line num="71" count="2793" type="stmt"/>
+        <line num="76" count="100" type="stmt"/>
+        <line num="93" count="3539" type="cond" truecount="3" falsecount="0"/>
+        <line num="94" count="107" type="stmt"/>
+        <line num="98" count="3432" type="cond" truecount="3" falsecount="0"/>
+        <line num="99" count="112" type="stmt"/>
+        <line num="103" count="3320" type="cond" truecount="1" falsecount="0"/>
+        <line num="104" count="4" type="stmt"/>
+        <line num="108" count="3316" type="cond" truecount="1" falsecount="0"/>
+        <line num="109" count="113" type="stmt"/>
+        <line num="113" count="3203" type="stmt"/>
+        <line num="114" count="8887" type="stmt"/>
+        <line num="115" count="8887" type="stmt"/>
+        <line num="116" count="8887" type="cond" truecount="1" falsecount="0"/>
+        <line num="117" count="410" type="stmt"/>
+        <line num="121" count="2793" type="stmt"/>
+        <line num="131" count="8887" type="cond" truecount="2" falsecount="1"/>
+        <line num="132" count="0" type="stmt"/>
+        <line num="136" count="8887" type="cond" truecount="3" falsecount="0"/>
+        <line num="137" count="25" type="stmt"/>
+        <line num="141" count="8862" type="cond" truecount="3" falsecount="0"/>
+        <line num="142" count="29" type="stmt"/>
+        <line num="146" count="8833" type="cond" truecount="3" falsecount="0"/>
+        <line num="147" count="220" type="stmt"/>
+        <line num="151" count="8613" type="cond" truecount="3" falsecount="0"/>
+        <line num="152" count="16" type="stmt"/>
+        <line num="156" count="8597" type="cond" truecount="1" falsecount="0"/>
+        <line num="157" count="18" type="stmt"/>
+        <line num="160" count="8579" type="cond" truecount="1" falsecount="0"/>
+        <line num="161" count="101" type="stmt"/>
+        <line num="165" count="8478" type="stmt"/>
+        <line num="166" count="50357" type="cond" truecount="1" falsecount="0"/>
+        <line num="167" count="1" type="stmt"/>
+        <line num="171" count="8477" type="stmt"/>
+        <line num="178" count="5" type="stmt"/>
+        <line num="179" count="2595" type="stmt"/>
+        <line num="180" count="2595" type="stmt"/>
+        <line num="182" count="0" type="stmt"/>
+        <line num="183" count="0" type="stmt"/>
+        <line num="191" count="5" type="stmt"/>
+        <line num="192" count="2937" type="stmt"/>
+        <line num="193" count="2937" type="stmt"/>
+        <line num="194" count="2937" type="cond" truecount="1" falsecount="0"/>
+        <line num="195" count="810" type="stmt"/>
+        <line num="197" count="2127" type="stmt"/>
+        <line num="199" count="0" type="stmt"/>
+        <line num="200" count="0" type="stmt"/>
+        <line num="207" count="5" type="stmt"/>
+        <line num="208" count="2945" type="stmt"/>
+        <line num="209" count="2945" type="stmt"/>
+        <line num="211" count="0" type="stmt"/>
+        <line num="220" count="5" type="stmt"/>
+        <line num="221" count="3403" type="stmt"/>
+        <line num="223" count="3403" type="cond" truecount="3" falsecount="0"/>
+        <line num="224" count="2591" type="stmt"/>
+        <line num="225" count="2591" type="stmt"/>
+        <line num="227" count="0" type="stmt"/>
+        <line num="237" count="3403" type="stmt"/>
+      </file>
+    </package>
+    <package name="environments">
+      <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="environment.development.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\environments\environment.development.ts">
+        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="4" count="0" type="stmt"/>
+      </file>
+      <file name="environment.ts" path="D:\Projects\VibgyorPaymentHandler\frontend\src\environments\environment.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
