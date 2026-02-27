@@ -1,0 +1,43 @@
+/* PricingPageComponent styles */
+
+/* Responsive grid adjustments */
+@media (max-width: 768px) {
+  /* Stack cards vertically on mobile */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* 2 columns on tablet */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Fade in animation for step transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}

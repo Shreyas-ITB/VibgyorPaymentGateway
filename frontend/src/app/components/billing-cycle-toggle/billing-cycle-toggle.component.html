@@ -1,0 +1,25 @@
+<div class="inline-flex items-center bg-white dark:bg-gray-900 rounded-lg p-1 border border-gray-200 dark:border-gray-800 shadow-sm">
+  <button
+    (click)="onToggle('monthly')"
+    [class.active]="selectedCycle === 'monthly'"
+    class="px-6 py-2 rounded-md font-medium transition-all duration-200 text-sm active:scale-[0.98]"
+    [ngClass]="{
+      'bg-black dark:bg-white text-white dark:text-black': selectedCycle === 'monthly',
+      'text-gray-700 dark:text-gray-300': selectedCycle !== 'monthly'
+    }"
+    type="button">
+    Monthly
+  </button>
+  <button
+    (click)="onToggle('annual')"
+    [class.active]="selectedCycle === 'annual'"
+    class="px-6 py-2 rounded-md font-medium transition-all duration-200 text-sm active:scale-[0.98]"
+    [ngClass]="{
+      'bg-black dark:bg-white text-white dark:text-black': selectedCycle === 'annual',
+      'text-gray-700 dark:text-gray-300': selectedCycle !== 'annual'
+    }"
+    type="button">
+    Annual
+    <span class="ml-2 text-xs bg-gray-900 dark:bg-white text-white dark:text-black px-2 py-0.5 rounded-full">Save 20%</span>
+  </button>
+</div>

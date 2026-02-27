@@ -1,0 +1,46 @@
+<div 
+  (click)="onToggle()"
+  [class]="'rounded-lg p-5 border-2 transition-all duration-200 cursor-pointer ' + 
+    (isSelected 
+      ? 'border-black dark:border-white bg-gray-50 dark:bg-gray-800' 
+      : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-gray-300 dark:hover:border-gray-600')">
+  
+  <div class="flex items-start justify-between">
+    <div class="flex-1">
+      <div class="flex items-center gap-3 mb-2">
+        <h4 class="text-lg font-semibold text-gray-900 dark:text-white">
+          {{ addon.name }}
+        </h4>
+      </div>
+      
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+        {{ addon.description }}
+      </p>
+      
+      <div class="flex items-baseline gap-1">
+        <span class="text-xl font-bold text-gray-900 dark:text-white">
+          {{ getPrice() }}
+        </span>
+        <span class="text-sm text-gray-600 dark:text-gray-400">
+          {{ getPricePeriod() }}
+        </span>
+      </div>
+    </div>
+    
+    <div class="ml-4">
+      <div [class]="'w-6 h-6 rounded border-2 flex items-center justify-center transition-all ' + 
+        (isSelected 
+          ? 'bg-black dark:bg-white border-black dark:border-white' 
+          : 'border-gray-300 dark:border-gray-600')">
+        <svg *ngIf="isSelected" 
+             class="w-4 h-4 text-white dark:text-black" 
+             fill="currentColor" 
+             viewBox="0 0 20 20">
+          <path fill-rule="evenodd" 
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
+                clip-rule="evenodd" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>

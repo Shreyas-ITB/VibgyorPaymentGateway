@@ -1,0 +1,19 @@
+/* Responsive card styling */
+.pricing-card {
+  /* Full width on mobile */
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Fixed width on desktop (768px and above) */
+@media (min-width: 768px) {
+  .pricing-card {
+    width: 320px;
+    max-width: 320px;
+  }
+}
+
+/* Ensure smooth transitions for theme changes */
+.pricing-card {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
