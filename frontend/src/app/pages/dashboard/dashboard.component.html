@@ -1,0 +1,2459 @@
+<div class="min-h-screen bg-black">
+  <!-- Floating Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-900 border-b border-gray-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Left: Title -->
+        <h1 class="text-xl font-bold text-white">Vibgyor Payment Gateway</h1>
+        
+        <!-- Center: Navigation Pages -->
+        <div class="flex items-center gap-4">
+          <button
+            class="px-4 py-2 text-white bg-blue-600 rounded-lg"
+          >
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+              </svg>
+              <span>Dashboard</span>
+            </div>
+          </button>
+          <button
+            (click)="navigateToCalendar()"
+            class="px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+          >
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span>Calendar</span>
+            </div>
+          </button>
+        </div>
+        
+        <!-- Right: New Order Button and Logout -->
+        <div class="flex items-center gap-4">
+          <!-- New Order Button -->
+          <button
+            (click)="onNewOrder()"
+            class="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            New Order
+          </button>
+          
+          <!-- Logout Button -->
+          <button
+            (click)="logout()"
+            class="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-all duration-200"
+            title="Logout"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            </svg>
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content with top padding for fixed navbar -->
+  <div class="pt-32 p-6 flex flex-col">
+    <div class="w-full flex-1 flex flex-col">
+      <!-- Header Section -->
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-white mb-2">Orders Management</h2>
+        <p class="text-gray-400">Manage your orders and clients</p>
+      </div>
+
+      <!-- Statistics Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
+        <!-- Total Clients -->
+        <div class="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 border border-blue-500 relative">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-white text-opacity-90 text-sm font-medium mb-1">Total Clients</h3>
+          <p class="text-3xl font-bold text-white">{{ statistics.totalClients }}</p>
+        </div>
+
+        <!-- Active Clients -->
+        <div class="bg-gradient-to-br from-green-600 to-green-700 rounded-xl shadow-lg p-6 border border-green-500 relative">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-white text-opacity-90 text-sm font-medium mb-1">Active Clients</h3>
+          <p class="text-3xl font-bold text-white">{{ statistics.activeClients }}</p>
+        </div>
+
+        <!-- Pending Clients -->
+        <div class="bg-gradient-to-br from-yellow-600 to-yellow-700 rounded-xl shadow-lg p-6 border border-yellow-500 relative">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-white text-opacity-90 text-sm font-medium mb-1">Pending Clients</h3>
+          <p class="text-3xl font-bold text-white">{{ statistics.pendingClients }}</p>
+        </div>
+
+        <!-- Total Revenue with Hover Popup -->
+        <div 
+          class="bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl shadow-lg p-6 border border-purple-500 relative cursor-pointer transition-all hover:shadow-xl"
+          (mouseenter)="onCardHover('totalRevenue')"
+          (mouseleave)="onCardLeave()"
+        >
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-white text-opacity-90 text-sm font-medium mb-1">Total Revenue</h3>
+          <p class="text-3xl font-bold text-white">{{ formatCurrency(statistics.totalRevenue) }}</p>
+          
+          <!-- Hover Popup -->
+          <div *ngIf="hoveredCard === 'totalRevenue'" class="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 bg-gray-900 text-white px-5 py-4 rounded-lg text-sm border border-gray-700 shadow-2xl z-10 whitespace-normal w-64">
+            <div class="font-semibold mb-3 text-base">Year {{ currentYear }} Revenue</div>
+            <div class="space-y-2 text-gray-200">
+              <div class="flex justify-between items-center">
+                <span>Total Revenue:</span>
+                <span class="font-bold text-green-400">{{ formatCurrency(statistics.totalRevenue) }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>New Orders:</span>
+                <span class="font-bold text-blue-400">{{ statistics.newOrders }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>Renewals Made:</span>
+                <span class="font-bold text-purple-400">{{ statistics.renewalsMade }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>Active Clients:</span>
+                <span class="font-bold text-cyan-400">{{ statistics.activeClients }}</span>
+              </div>
+              <div class="border-t border-gray-600 mt-3 pt-3 text-xs text-gray-400">
+                Resets Jan 1st each year
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monthly Revenue with Hover Popup -->
+        <div 
+          class="bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-xl shadow-lg p-6 border border-indigo-500 relative cursor-pointer transition-all hover:shadow-xl"
+          (mouseenter)="onCardHover('monthlyRevenue')"
+          (mouseleave)="onCardLeave()"
+        >
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-white text-opacity-90 text-sm font-medium mb-1">This Month</h3>
+          <p class="text-3xl font-bold text-white">{{ formatCurrency(statistics.monthlyRevenue) }}</p>
+          
+          <!-- Hover Popup -->
+          <div *ngIf="hoveredCard === 'monthlyRevenue'" class="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 bg-gray-900 text-white px-5 py-4 rounded-lg text-sm border border-gray-700 shadow-2xl z-10 whitespace-normal w-64">
+            <div class="font-semibold mb-3 text-base">{{ getMonthName() }} {{ currentYear }}</div>
+            <div class="space-y-2 text-gray-200">
+              <div class="flex justify-between items-center">
+                <span>Monthly Revenue:</span>
+                <span class="font-bold text-green-400">{{ formatCurrency(statistics.monthlyRevenue) }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>New Orders:</span>
+                <span class="font-bold text-blue-400">{{ statistics.newOrders }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>Renewals Made:</span>
+                <span class="font-bold text-purple-400">{{ statistics.renewalsMade }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>Failed Payments:</span>
+                <span class="font-bold text-red-400">{{ statistics.failedPayments }}</span>
+              </div>
+              <div class="border-t border-gray-600 mt-3 pt-3 text-xs text-gray-400">
+                Current month revenue
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Average Order Value -->
+        <div class="bg-gradient-to-br from-pink-600 to-pink-700 rounded-xl shadow-lg p-6 border border-pink-500 relative">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-white text-opacity-90 text-sm font-medium mb-1">Avg Order Value</h3>
+          <p class="text-3xl font-bold text-white">{{ formatCurrency(statistics.averageOrderValue) }}</p>
+        </div>
+      </div>
+
+    <!-- Table Section -->
+    <div class="bg-gray-900 rounded-lg shadow-xl border border-gray-800 flex-1 flex flex-col">
+      <!-- Table Container -->
+      <div class="flex-1 overflow-hidden">
+        <table class="w-full">
+          <thead class="bg-gray-800 border-b border-gray-700">
+            <tr>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider" style="width: 5%;">
+                SL NO
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider" style="width: 10%;">
+                Status
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider" style="width: 10%;">
+                Plan Status
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider" style="width: 18%;">
+                Client Details
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider" style="width: 16%;">
+                Plan Details
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider" style="width: 13%;">
+                Payment Details
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider" style="width: 11%;">
+                Documents
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider" style="width: 10%;">
+                Actions
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider" style="width: 10%;">
+                Deactivate
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-800">
+            <!-- Empty State -->
+            <tr *ngIf="orders.length === 0">
+              <td colspan="9" class="px-6 py-16 text-center">
+                <div class="flex flex-col items-center justify-center">
+                  <svg class="w-16 h-16 text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                  <h3 class="text-lg font-medium text-gray-400 mb-2">No orders yet</h3>
+                  <p class="text-gray-500 mb-4">Get started by creating your first order</p>
+                  <button
+                    (click)="onNewOrder()"
+                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                  >
+                    Create New Order
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Order Rows (will be populated with data) -->
+            <tr 
+              *ngFor="let order of paginatedOrders; let i = index"
+              class="hover:bg-gray-800 transition-colors"
+            >
+              <!-- Serial Number Column -->
+              <td class="px-6 py-4">
+                <div class="text-sm font-medium text-gray-400">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</div>
+              </td>
+
+              <!-- Status Column -->
+              <td class="px-6 py-4">
+                <span [ngClass]="getStatusClasses(order.status)">
+                  {{ getStatusText(order.status) }}
+                </span>
+              </td>
+
+              <!-- Plan Status Column -->
+              <td class="px-6 py-4">
+                <span [ngClass]="getPlanStatusClasses(order.planStatus)">
+                  {{ getPlanStatusText(order.planStatus) }}
+                </span>
+              </td>
+
+              <!-- Client Details Column -->
+              <td class="px-6 py-4">
+                <div>
+                  <div class="text-sm font-medium text-white mb-1">{{ order.clientDetails.businessName }}</div>
+                  <div class="text-xs text-gray-400">GSTIN: {{ order.clientDetails.gstin }}</div>
+                </div>
+              </td>
+
+              <!-- Plan Details Column -->
+              <td class="px-6 py-4">
+                <div>
+                  <div class="text-sm font-medium text-white mb-1">{{ order.planDetails.planType }}</div>
+                  <div class="text-xs text-gray-400">Start: {{ order.planDetails.startDate }}</div>
+                  <div class="text-xs text-gray-400">Renewal: {{ order.planDetails.renewalDate }}</div>
+                </div>
+              </td>
+
+              <!-- Payment Details Column -->
+              <td class="px-6 py-4">
+                <div class="text-sm font-semibold text-green-400">{{ formatCurrency(getFinalPrice(order)) }}</div>
+                <div class="text-xs text-gray-400 mt-1">Final Price</div>
+              </td>
+
+              <!-- Documents Column -->
+              <td class="px-6 py-4">
+                <a
+                  href="https://docuseal.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-block px-3 py-1.5 text-xs font-medium bg-white text-gray-900 rounded hover:bg-gray-100 transition-colors"
+                >
+                  View Documents
+                </a>
+              </td>
+
+              <!-- Actions Column -->
+              <td class="px-6 py-4">
+                <button
+                  (click)="onViewDetails($event, order)"
+                  class="px-3 py-1.5 text-xs font-medium bg-white text-gray-900 rounded hover:bg-gray-100 transition-colors"
+                >
+                  View Details
+                </button>
+              </td>
+
+              <!-- Deactivate Column -->
+              <td class="px-6 py-4">
+                <button
+                  (click)="onDeleteOrder($event, order)"
+                  [disabled]="order.isDeactivated || order.status === 'deactivated'"
+                  [class.opacity-50]="order.isDeactivated || order.status === 'deactivated'"
+                  [class.cursor-not-allowed]="order.isDeactivated || order.status === 'deactivated'"
+                  class="px-3 py-1.5 text-xs font-medium bg-orange-600 text-white rounded hover:bg-orange-700 transition-colors disabled:hover:bg-orange-600"
+                >
+                  {{ (order.isDeactivated || order.status === 'deactivated') ? 'Deactivated' : 'Deactivate' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination Controls -->
+      <div class="px-6 py-4 bg-gray-800 border-t border-gray-700 flex items-center justify-between">
+        <div class="flex items-center gap-2 text-sm text-gray-400">
+          <span>Showing</span>
+          <span class="font-semibold text-white">{{ (currentPage - 1) * itemsPerPage + 1 }}</span>
+          <span>to</span>
+          <span class="font-semibold text-white">{{ Math.min(currentPage * itemsPerPage, allOrders.length) }}</span>
+          <span>of</span>
+          <span class="font-semibold text-white">{{ allOrders.length }}</span>
+          <span>orders</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Previous Button -->
+          <button
+            (click)="previousPage()"
+            [disabled]="currentPage === 1"
+            [class.opacity-50]="currentPage === 1"
+            [class.cursor-not-allowed]="currentPage === 1"
+            class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:hover:bg-gray-700"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <!-- Page Numbers -->
+          <div class="flex items-center gap-1">
+            <button
+              *ngFor="let page of getPageNumbers()"
+              (click)="goToPage(page)"
+              [class.bg-blue-600]="page === currentPage"
+              [class.text-white]="page === currentPage"
+              [class.bg-gray-700]="page !== currentPage"
+              [class.text-gray-300]="page !== currentPage"
+              [class.hover:bg-gray-600]="page !== currentPage"
+              class="px-4 py-2 rounded-lg transition-colors font-medium"
+            >
+              {{ page }}
+            </button>
+          </div>
+
+          <!-- Next Button -->
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages"
+            [class.opacity-50]="currentPage === totalPages"
+            [class.cursor-not-allowed]="currentPage === totalPages"
+            class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:hover:bg-gray-700"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Documents Modal -->
+  <div 
+    *ngIf="showDocumentsModal"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeDocumentsModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-gray-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700">
+        <div>
+          <h2 class="text-xl font-bold text-white">Documents</h2>
+          <p class="text-sm text-gray-400 mt-1" *ngIf="selectedOrder">
+            {{ selectedOrder.clientDetails.businessName }} - {{ selectedOrder.clientDetails.gstin }}
+          </p>
+        </div>
+        <button
+          (click)="closeDocumentsModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-8 overflow-y-auto" style="max-height: calc(90vh - 180px);">
+        <div *ngIf="selectedOrder && selectedOrder.documents.length > 0" class="space-y-4">
+          <!-- Document List -->
+          <div
+            *ngFor="let document of selectedOrder.documents"
+            class="bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-gray-600 transition-colors"
+          >
+            <div class="flex items-start justify-between gap-4">
+              <!-- Document Info -->
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                  <!-- Document Icon -->
+                  <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                  
+                  <!-- Document Name as Hyperlink -->
+                  <a
+                    [href]="document.url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-lg font-medium text-blue-400 hover:text-blue-300 hover:underline transition-colors"
+                  >
+                    {{ document.name }}
+                  </a>
+                </div>
+                
+                <!-- Document URL -->
+                <div class="text-xs text-gray-500 font-mono ml-9 mb-2">
+                  {{ document.url }}
+                </div>
+                
+                <!-- Status Badge -->
+                <div class="ml-9">
+                  <span [ngClass]="getDocumentStatusClasses(document.status)">
+                    {{ getDocumentStatusText(document.status) }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-col gap-2 flex-shrink-0">
+                <button
+                  *ngIf="document.status !== 'signed'"
+                  (click)="markDocumentAsSigned(document)"
+                  class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition-colors font-medium"
+                >
+                  Mark as Signed
+                </button>
+                <button
+                  *ngIf="document.status === 'not-signed'"
+                  (click)="skipDocument(document)"
+                  class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white text-sm rounded-lg transition-colors font-medium"
+                >
+                  Skip
+                </button>
+                <button
+                  (click)="openDocument(document.url)"
+                  class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors font-medium flex items-center gap-2"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                  Open
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!selectedOrder || selectedOrder.documents.length === 0" class="flex flex-col items-center justify-center py-16">
+          <!-- Document Icon -->
+          <div class="mb-6">
+            <svg class="w-24 h-24 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          
+          <!-- Placeholder Text -->
+          <p class="text-gray-400 text-center text-lg">
+            No documents available for this order
+          </p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <button
+          (click)="closeDocumentsModal()"
+          class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Details Modal -->
+  <div 
+    *ngIf="showDetailsModal"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeDetailsModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden border border-gray-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between px-6 py-4 border-b border-gray-700 bg-gray-800">
+        <div class="flex-1 pr-4">
+          <h2 class="text-2xl font-bold text-white">Order Details</h2>
+          <p class="text-sm text-gray-400 mt-1" *ngIf="selectedOrder">
+            Order ID: #{{ selectedOrder.id }}
+          </p>
+        </div>
+        <button
+          (click)="closeDetailsModal()"
+          class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-1"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body - Scrollable -->
+      <div class="p-6 overflow-y-auto custom-scrollbar" style="max-height: calc(90vh - 180px);">
+        <div *ngIf="selectedOrder && !isEditMode" class="space-y-6">
+          
+          <!-- Client Information Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              Client Information
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs text-gray-400 uppercase tracking-wider">Client Name</label>
+                <p class="text-white font-medium mt-1">{{ selectedOrder.clientDetails.clientName }}</p>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 uppercase tracking-wider">Business Name</label>
+                <p class="text-white font-medium mt-1">{{ selectedOrder.clientDetails.businessName }}</p>
+              </div>
+              <div class="md:col-span-2">
+                <label class="text-xs text-gray-400 uppercase tracking-wider">Business Email</label>
+                <p class="text-white font-medium mt-1">{{ selectedOrder.clientDetails.businessEmail }}</p>
+              </div>
+              <div class="md:col-span-2">
+                <label class="text-xs text-gray-400 uppercase tracking-wider">Business Address</label>
+                <p class="text-white font-medium mt-1">{{ selectedOrder.clientDetails.businessAddress }}</p>
+              </div>
+              <div class="md:col-span-2">
+                <label class="text-xs text-gray-400 uppercase tracking-wider">GSTIN Number</label>
+                <p class="text-white font-medium mt-1 font-mono">{{ selectedOrder.clientDetails.gstin }}</p>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 uppercase tracking-wider">Sales Person</label>
+                <p class="text-white font-medium mt-1">{{ selectedOrder.clientDetails.salesPerson }}</p>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 uppercase tracking-wider">Responsible Person</label>
+                <p class="text-white font-medium mt-1">{{ selectedOrder.clientDetails.responsiblePerson }}</p>
+              </div>
+              <div class="md:col-span-2">
+                <label class="text-xs text-gray-400 uppercase tracking-wider">Approved By (Manager)</label>
+                <p class="text-white font-medium mt-1">{{ selectedOrder.clientDetails.approvedBy }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plan Details Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              Plan Details
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="text-xs text-gray-400 uppercase tracking-wider">Plan Type</label>
+                <p class="text-white font-medium mt-1">{{ selectedOrder.planDetails.planType }}</p>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 uppercase tracking-wider">Start Date</label>
+                <p class="text-white font-medium mt-1">{{ selectedOrder.planDetails.startDate }}</p>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 uppercase tracking-wider">Renewal Date</label>
+                <p class="text-white font-medium mt-1">{{ selectedOrder.planDetails.renewalDate }}</p>
+              </div>
+            </div>
+
+            <!-- Offers Section -->
+            <div class="pt-4 border-t border-gray-700 mt-4">
+              <label class="text-xs text-gray-400 uppercase tracking-wider block mb-3">Offers</label>
+              <div class="flex flex-wrap gap-2">
+                <span 
+                  *ngFor="let offer of selectedOrder.paymentDetails.offers"
+                  class="px-3 py-1.5 bg-green-900 text-green-200 rounded text-sm"
+                >
+                  {{ offer }}
+                </span>
+                <span 
+                  *ngIf="selectedOrder.paymentDetails.offers.length === 0"
+                  class="text-gray-500 text-sm"
+                >
+                  No offers applied
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Details Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              Payment Details
+            </h3>
+            <div class="space-y-4">
+              <!-- Plan Status Badge -->
+              <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-700">
+                <div>
+                  <label class="text-xs text-gray-400 uppercase tracking-wider block mb-2">Plan Status (Payment Status)</label>
+                  <span [ngClass]="getPlanStatusClasses(selectedOrder.planStatus)">
+                    {{ getPlanStatusText(selectedOrder.planStatus) }}
+                  </span>
+                </div>
+                <!-- Check Payment Status Button - Only show if plan status is dormant -->
+                <button
+                  *ngIf="selectedOrder.planStatus === 'dormant'"
+                  (click)="checkPaymentStatus(selectedOrder.id)"
+                  class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium flex items-center gap-2"
+                  [disabled]="isLoading"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                  </svg>
+                  Check Payment Status
+                </button>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs text-gray-400 uppercase tracking-wider">Plan Price</label>
+                  <p class="text-white font-semibold mt-1 text-lg">{{ formatCurrency(selectedOrder.paymentDetails.planPrice) }}</p>
+                </div>
+                <div>
+                  <label class="text-xs text-gray-400 uppercase tracking-wider">Addons Price</label>
+                  <p class="text-white font-semibold mt-1 text-lg">{{ formatCurrency(selectedOrder.paymentDetails.addonsPrice) }}</p>
+                </div>
+                <div>
+                  <label class="text-xs text-gray-400 uppercase tracking-wider">Total Before Discount</label>
+                  <p class="text-white font-semibold mt-1 text-lg">{{ formatCurrency(selectedOrder.paymentDetails.planPrice + selectedOrder.paymentDetails.addonsPrice) }}</p>
+                </div>
+                <div>
+                  <label class="text-xs text-gray-400 uppercase tracking-wider">Discount Applied</label>
+                  <p class="text-red-400 font-semibold mt-1 text-lg">- {{ formatCurrency(getDiscount(selectedOrder)) }}</p>
+                </div>
+                <div class="md:col-span-2 pt-4 border-t border-gray-700">
+                  <label class="text-xs text-gray-400 uppercase tracking-wider">Final Price (Paid by Customer)</label>
+                  <p class="text-green-400 font-bold mt-1 text-2xl">{{ formatCurrency(getFinalPrice(selectedOrder)) }}</p>
+                </div>
+                <div class="md:col-span-2">
+                  <label class="text-xs text-gray-400 uppercase tracking-wider">Renewal Price (Next Payment)</label>
+                  <p class="text-blue-400 font-semibold mt-1 text-lg">{{ formatCurrency(selectedOrder.paymentDetails.renewalPrice) }}</p>
+                </div>
+              </div>
+              
+              <!-- Addons Section -->
+              <div class="pt-4 border-t border-gray-700">
+                <label class="text-xs text-gray-400 uppercase tracking-wider block mb-3">Addons</label>
+                <div class="flex flex-wrap gap-2">
+                  <span 
+                    *ngFor="let addon of selectedOrder.paymentDetails.addons"
+                    class="px-3 py-1.5 bg-gray-700 text-gray-200 rounded text-sm"
+                  >
+                    {{ addon }}
+                  </span>
+                  <span 
+                    *ngIf="selectedOrder.paymentDetails.addons.length === 0"
+                    class="text-gray-500 text-sm"
+                  >
+                    No addons included
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Link Section (Only show if payment link exists) -->
+          <div *ngIf="selectedOrder.paymentLink" class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+              </svg>
+              Payment Link
+            </h3>
+            
+            <div class="space-y-4">
+              <!-- Payment Link Status -->
+              <div class="flex items-center justify-between pb-3 border-b border-gray-700">
+                <div>
+                  <label class="text-xs text-gray-400 uppercase tracking-wider block mb-2">Link Status</label>
+                  <span 
+                    class="px-3 py-1 rounded-full text-xs font-semibold inline-block"
+                    [ngClass]="{
+                      'bg-green-900 text-green-200': selectedOrder.paymentLink.status === 'paid',
+                      'bg-yellow-900 text-yellow-200': selectedOrder.paymentLink.status === 'created',
+                      'bg-red-900 text-red-200': selectedOrder.paymentLink.status === 'expired' || selectedOrder.paymentLink.status === 'cancelled'
+                    }"
+                  >
+                    {{ selectedOrder.paymentLink.status === 'created' ? 'Awaiting Payment' : 
+                       selectedOrder.paymentLink.status === 'paid' ? 'Paid' : 
+                       selectedOrder.paymentLink.status.charAt(0).toUpperCase() + selectedOrder.paymentLink.status.slice(1) }}
+                  </span>
+                </div>
+                <div class="text-right">
+                  <label class="text-xs text-gray-400 uppercase tracking-wider block mb-1">Expires On</label>
+                  <p class="text-white text-sm">{{ selectedOrder.paymentLink.expiresAt | date: 'dd MMM yyyy, hh:mm a' }}</p>
+                </div>
+              </div>
+
+              <!-- Payment Link URL -->
+              <div>
+                <label class="text-xs text-gray-400 uppercase tracking-wider block mb-2">Payment Link URL</label>
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    [value]="selectedOrder.paymentLink.shortUrl"
+                    readonly
+                    class="flex-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white font-mono text-sm focus:outline-none"
+                  />
+                  <button
+                    (click)="copyOrderPaymentLink(selectedOrder.paymentLink.shortUrl)"
+                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium flex items-center gap-2"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    Copy
+                  </button>
+                  <a
+                    [href]="selectedOrder.paymentLink.shortUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-medium flex items-center gap-2"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                    Open
+                  </a>
+                </div>
+              </div>
+
+              <!-- Created Date -->
+              <div class="text-xs text-gray-400">
+                Link created on {{ selectedOrder.paymentLink.createdAt | date: 'dd MMM yyyy, hh:mm a' }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Audit Log Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+              </svg>
+              Activity Timeline
+            </h3>
+            
+            <!-- Timeline -->
+            <div class="space-y-4 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
+              <div 
+                *ngFor="let log of selectedOrder.auditLog; let last = last"
+                class="relative pl-8"
+              >
+                <!-- Timeline Line -->
+                <div 
+                  *ngIf="!last"
+                  class="absolute left-2 top-8 bottom-0 w-0.5 bg-gray-700"
+                ></div>
+                
+                <!-- Timeline Dot -->
+                <div class="absolute left-0 top-1 w-4 h-4 rounded-full border-2 border-gray-700"
+                     [ngClass]="{
+                       'bg-green-500': log.action.includes('Created'),
+                       'bg-blue-500': log.action.includes('Updated') || log.action.includes('Changed'),
+                       'bg-yellow-500': log.action.includes('Status'),
+                       'bg-purple-500': log.action.includes('Plan')
+                     }"
+                ></div>
+                
+                <!-- Log Entry -->
+                <div class="bg-gray-700 rounded-lg p-4 hover:bg-gray-650 transition-colors">
+                  <!-- Header -->
+                  <div class="flex items-start justify-between gap-4 mb-2">
+                    <div class="flex items-center gap-2 flex-1">
+                      <svg 
+                        class="w-5 h-5 flex-shrink-0"
+                        [ngClass]="{
+                          'text-green-400': log.action.includes('Created'),
+                          'text-blue-400': log.action.includes('Updated') || log.action.includes('Changed'),
+                          'text-yellow-400': log.action.includes('Status'),
+                          'text-purple-400': log.action.includes('Plan')
+                        }"
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          *ngIf="log.action.includes('Created')"
+                          stroke-linecap="round" 
+                          stroke-linejoin="round" 
+                          stroke-width="2" 
+                          d="M12 4v16m8-8H4"
+                        />
+                        <path 
+                          *ngIf="log.action.includes('Updated') || log.action.includes('Changed')"
+                          stroke-linecap="round" 
+                          stroke-linejoin="round" 
+                          stroke-width="2" 
+                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        />
+                        <path 
+                          *ngIf="log.action.includes('Status')"
+                          stroke-linecap="round" 
+                          stroke-linejoin="round" 
+                          stroke-width="2" 
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                        <path 
+                          *ngIf="log.action.includes('Plan')"
+                          stroke-linecap="round" 
+                          stroke-linejoin="round" 
+                          stroke-width="2" 
+                          d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                        />
+                      </svg>
+                      <h4 class="text-white font-semibold">{{ log.action }}</h4>
+                    </div>
+                    <span class="text-xs text-gray-400 whitespace-nowrap">{{ formatAuditTimestamp(log.timestamp) }}</span>
+                  </div>
+                  
+                  <!-- Details -->
+                  <p class="text-sm text-gray-300 mb-3 ml-7" *ngIf="log.details">{{ log.details }}</p>
+                  
+                  <!-- User -->
+                  <div class="flex items-center gap-2 text-xs text-gray-400 mb-3 ml-7">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                    <span>by {{ log.user }}</span>
+                  </div>
+                  
+                  <!-- Changes Details -->
+                  <div *ngIf="log.changes && log.changes.length > 0" class="ml-7 space-y-2">
+                    <div class="text-xs font-semibold text-gray-400 mb-2">Changes:</div>
+                    <div *ngFor="let change of log.changes" class="bg-gray-800 rounded p-2 border border-gray-600">
+                      <div class="text-xs font-medium text-gray-300 mb-1">{{ formatFieldName(change.field) }}</div>
+                      <div class="flex items-center gap-2">
+                        <span class="text-xs px-2 py-1 bg-red-900/50 text-red-300 rounded border border-red-700 line-through">
+                          {{ formatAuditValue(change.oldValue) }}
+                        </span>
+                        <svg class="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                        <span class="text-xs px-2 py-1 bg-green-900/50 text-green-300 rounded border border-green-700 font-medium">
+                          {{ formatAuditValue(change.newValue) }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Empty State -->
+              <div *ngIf="!selectedOrder.auditLog || selectedOrder.auditLog.length === 0" class="text-center py-8">
+                <svg class="w-12 h-12 text-gray-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                </svg>
+                <p class="text-gray-400">No activity recorded yet</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Edit Mode View -->
+        <div *ngIf="isEditMode && editForm" class="space-y-6">
+          
+          <!-- Client Information Section (Editable) -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              Client Information
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Client Name *</label>
+                <input
+                  type="text"
+                  [(ngModel)]="editForm.clientDetails.clientName"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Business Name *</label>
+                <input
+                  type="text"
+                  [(ngModel)]="editForm.clientDetails.businessName"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Business Email *</label>
+                <input
+                  type="email"
+                  [(ngModel)]="editForm.clientDetails.businessEmail"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Business Address *</label>
+                <input
+                  type="text"
+                  [(ngModel)]="editForm.clientDetails.businessAddress"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">GSTIN Number *</label>
+                <input
+                  type="text"
+                  [(ngModel)]="editForm.clientDetails.gstin"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 font-mono"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Sales Person</label>
+                <select
+                  [(ngModel)]="editForm.clientDetails.salesPerson"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option *ngFor="let member of teamMembers" [value]="member">{{ member }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Responsible Person</label>
+                <select
+                  [(ngModel)]="editForm.clientDetails.responsiblePerson"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option *ngFor="let member of teamMembers" [value]="member">{{ member }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Approved By</label>
+                <select
+                  [(ngModel)]="editForm.clientDetails.approvedBy"
+                  (ngModelChange)="onEditApprovedByChange()"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="Pending">Pending</option>
+                  <option *ngFor="let member of teamMembers" [value]="member">{{ member }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plan Details Section (Editable) -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              Plan Details
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Plan Type</label>
+                <select
+                  [(ngModel)]="editForm.planDetails.planType"
+                  (change)="onPlanTypeChange()"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="Quarterly">Quarterly</option>
+                  <option value="Yearly">Yearly</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Start Date</label>
+                <input
+                  type="date"
+                  [value]="formatDateToInput(editForm.planDetails.startDate)"
+                  (change)="editForm.planDetails.startDate = formatDateFromInput($any($event.target).value); onStartDateChange()"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Renewal Date (Auto-calculated)</label>
+                <input
+                  type="date"
+                  [value]="formatDateToInput(editForm.planDetails.renewalDate)"
+                  readonly
+                  class="w-full px-4 py-2 bg-gray-600 border border-gray-600 rounded-lg text-gray-300 cursor-not-allowed"
+                />
+              </div>
+            </div>
+            
+            <!-- Status and Plan Status Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Status (Order Approval)</label>
+                <select
+                  [(ngModel)]="editForm.status"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="Pending">Pending</option>
+                  <option value="Active">Approved</option>
+                  <option value="Expired">Rejected</option>
+                  <option value="Deactivated">Deactivated</option>
+                </select>
+                <p class="text-xs text-gray-500 mt-1">
+                  Manager approval status. Setting to "Deactivated" blocks customer portal access.
+                </p>
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Plan Status (Payment Status)</label>
+                <select
+                  [(ngModel)]="editForm.planStatus"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="active">Active</option>
+                  <option value="dormant">Dormant</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+                <p class="text-xs text-gray-500 mt-1">
+                  Payment-based status: Active (paid), Dormant (2 months grace), Inactive (3+ months).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Details Section (Editable) -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              Payment Details
+            </h3>
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Plan Price</label>
+                  <input
+                    type="number"
+                    [(ngModel)]="editForm.paymentDetails.planPrice"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Addons Price</label>
+                  <input
+                    type="number"
+                    [(ngModel)]="editForm.paymentDetails.addonsPrice"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Discount</label>
+                  <input
+                    type="number"
+                    [(ngModel)]="editForm.paymentDetails.offerPrice"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Renewal Price</label>
+                  <input
+                    type="number"
+                    [(ngModel)]="editForm.paymentDetails.renewalPrice"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-between gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <div>
+          <button
+            *ngIf="!isEditMode"
+            (click)="enableEditMode()"
+            class="px-6 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg transition-colors font-medium"
+          >
+            Edit
+          </button>
+        </div>
+        <div class="flex gap-3">
+          <button
+            *ngIf="isEditMode"
+            (click)="cancelEditMode()"
+            class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+          >
+            Cancel
+          </button>
+          <button
+            *ngIf="isEditMode"
+            (click)="saveEditedOrder()"
+            class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-medium"
+          >
+            Save Changes
+          </button>
+          <button
+            *ngIf="!isEditMode"
+            (click)="closeDetailsModal()"
+            class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Order Modal -->
+  <div 
+    *ngIf="showNewOrderModal"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeNewOrderModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden border border-gray-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between px-6 py-4 border-b border-gray-700 bg-gray-800">
+        <div class="flex-1 pr-4">
+          <h2 class="text-2xl font-bold text-white">Create New Order</h2>
+          <p class="text-sm text-gray-400 mt-1">Fill in the client details and generate payment link</p>
+        </div>
+        <button
+          (click)="closeNewOrderModal()"
+          class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-1"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body - Scrollable -->
+      <div class="p-6 overflow-y-auto custom-scrollbar" style="max-height: calc(90vh - 180px);">
+        <div class="space-y-6">
+          
+          <!-- Client Information Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              Client Information
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Client Name *</label>
+                <input
+                  type="text"
+                  [(ngModel)]="newOrderForm.clientName"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  placeholder="Enter client name"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Business Name *</label>
+                <input
+                  type="text"
+                  [(ngModel)]="newOrderForm.businessName"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  placeholder="Enter business name"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Business Email *</label>
+                <input
+                  type="email"
+                  [(ngModel)]="newOrderForm.businessEmail"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  placeholder="contact@business.com"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">GSTIN Number *</label>
+                <input
+                  type="text"
+                  [(ngModel)]="newOrderForm.gstin"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 font-mono"
+                  placeholder="29ABCDE1234F1Z5"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Business Address *</label>
+                <input
+                  type="text"
+                  [(ngModel)]="newOrderForm.businessAddress"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  placeholder="Enter business address"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Plan Selection Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              Plan Selection
+            </h3>
+            <div class="space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <label class="block text-xs text-gray-400 uppercase tracking-wider">Choose Plan Type *</label>
+                  <button
+                    (click)="openManagePlansModal()"
+                    class="flex items-center gap-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-lg transition-colors"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    Manage Plans
+                  </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <label 
+                    *ngFor="let plan of availablePlans"
+                    class="flex items-center gap-3 px-4 py-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition-colors"
+                    [class.ring-2]="newOrderForm.planType === plan.name"
+                    [class.ring-blue-500]="newOrderForm.planType === plan.name"
+                  >
+                    <input
+                      type="radio"
+                      name="planType"
+                      [value]="plan.name"
+                      [(ngModel)]="newOrderForm.planType"
+                      class="w-4 h-4 text-blue-600"
+                    />
+                    <div>
+                      <div class="text-white font-medium">{{ plan.displayName }}</div>
+                      <div class="text-sm text-gray-400">{{ formatCurrency(plan.price) }} / {{ plan.duration }} months</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              
+              <!-- Start Date Field -->
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Start Date *</label>
+                <input
+                  type="date"
+                  [(ngModel)]="newOrderForm.startDate"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Assignment Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              Team Assignment
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Sales Person *</label>
+                <select
+                  [(ngModel)]="newOrderForm.salesPerson"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="">Select sales person</option>
+                  <option *ngFor="let member of teamMembers" [value]="member">{{ member }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Responsible Person *</label>
+                <select
+                  [(ngModel)]="newOrderForm.responsiblePerson"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="">Select responsible person</option>
+                  <option *ngFor="let member of teamMembers" [value]="member">{{ member }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Approved By</label>
+                <select
+                  [(ngModel)]="newOrderForm.approvedBy"
+                  (ngModelChange)="onApprovedByChange()"
+                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="Pending">Pending</option>
+                  <option *ngFor="let member of teamMembers" [value]="member">{{ member }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Addons Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-white flex items-center gap-2">
+                <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                Addons
+                <span *ngIf="!newOrderForm.planType" class="text-xs text-gray-400 font-normal">(Select a plan first)</span>
+              </h3>
+              <button
+                (click)="openAddAddonModal()"
+                class="flex items-center gap-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Add Custom
+              </button>
+            </div>
+            
+            <!-- No Plan Selected Message -->
+            <div *ngIf="!newOrderForm.planType" class="text-center py-8">
+              <svg class="w-12 h-12 text-gray-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+              </svg>
+              <p class="text-gray-400 text-sm">Please select a plan first to see available addons</p>
+            </div>
+
+            <!-- Addons Grid -->
+            <div *ngIf="newOrderForm.planType" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              <label
+                *ngFor="let addon of getFilteredAddons()"
+                class="flex items-start gap-3 px-4 py-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition-colors relative"
+                [class.ring-2]="isAddonSelected(addon.id)"
+                [class.ring-blue-500]="isAddonSelected(addon.id)"
+              >
+                <input
+                  type="checkbox"
+                  [checked]="isAddonSelected(addon.id)"
+                  (change)="toggleAddon(addon.id)"
+                  class="mt-1 w-4 h-4 text-blue-600"
+                />
+                <div class="flex-1">
+                  <div class="text-white font-medium text-sm">{{ addon.displayName }}</div>
+                  <div class="text-xs text-green-400">+{{ formatCurrency(addon.price) }}</div>
+                  <div *ngIf="addon.applicablePlans && addon.applicablePlans.length > 0" class="text-xs text-gray-400 mt-1">
+                    For: {{ getApplicablePlansText(addon.applicablePlans) }}
+                  </div>
+                </div>
+                <div class="flex gap-1">
+                  <button
+                    (click)="editAddon(addon); $event.stopPropagation()"
+                    class="p-1 text-blue-400 hover:text-blue-300 transition-colors"
+                    title="Edit"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                  </button>
+                  <button
+                    (click)="deleteAddon(addon.id); $event.stopPropagation()"
+                    class="p-1 text-red-400 hover:text-red-300 transition-colors"
+                    title="Delete"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                  </button>
+                </div>
+              </label>
+            </div>
+
+            <!-- No Addons Available Message -->
+            <div *ngIf="newOrderForm.planType && getFilteredAddons().length === 0" class="text-center py-8">
+              <svg class="w-12 h-12 text-gray-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+              </svg>
+              <p class="text-gray-400 text-sm">No addons available for the selected plan</p>
+            </div>
+          </div>
+
+          <!-- Offers Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-white flex items-center gap-2">
+                <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+                </svg>
+                Special Offers
+                <span *ngIf="!newOrderForm.planType" class="text-xs text-gray-400 font-normal">(Select a plan first)</span>
+              </h3>
+              <button
+                (click)="openAddOfferModal()"
+                class="flex items-center gap-1 px-3 py-1.5 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-lg transition-colors"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Add Custom
+              </button>
+            </div>
+            
+            <!-- No Plan Selected Message -->
+            <div *ngIf="!newOrderForm.planType" class="text-center py-8">
+              <svg class="w-12 h-12 text-gray-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+              </svg>
+              <p class="text-gray-400 text-sm">Please select a plan first to see available offers</p>
+            </div>
+
+            <!-- Offers Grid -->
+            <div *ngIf="newOrderForm.planType" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              <label
+                *ngFor="let offer of getFilteredOffers()"
+                class="flex items-start gap-3 px-4 py-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition-colors relative"
+                [class.ring-2]="isOfferSelected(offer.id)"
+                [class.ring-pink-500]="isOfferSelected(offer.id)"
+              >
+                <input
+                  type="checkbox"
+                  [checked]="isOfferSelected(offer.id)"
+                  (change)="toggleOffer(offer.id)"
+                  class="mt-1 w-4 h-4 text-pink-600"
+                />
+                <div class="flex-1">
+                  <div class="text-white font-medium text-sm">{{ offer.displayName }}</div>
+                  <div class="text-xs text-pink-400" *ngIf="offer.freeMonths > 0">
+                    +{{ offer.freeMonths }} month{{ offer.freeMonths > 1 ? 's' : '' }} free
+                  </div>
+                  <div class="text-xs text-pink-400" *ngIf="offer.discountPercentage > 0">
+                    {{ offer.discountPercentage }}% discount
+                  </div>
+                  <div *ngIf="offer.applicablePlans && offer.applicablePlans.length > 0" class="text-xs text-gray-400 mt-1">
+                    For: {{ getApplicablePlansText(offer.applicablePlans) }}
+                  </div>
+                </div>
+                <div class="flex gap-1">
+                  <button
+                    (click)="editOffer(offer); $event.stopPropagation()"
+                    class="p-1 text-blue-400 hover:text-blue-300 transition-colors"
+                    title="Edit"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                  </button>
+                  <button
+                    (click)="deleteOffer(offer.id); $event.stopPropagation()"
+                    class="p-1 text-red-400 hover:text-red-300 transition-colors"
+                    title="Delete"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                  </button>
+                </div>
+              </label>
+            </div>
+
+            <!-- No Offers Available Message -->
+            <div *ngIf="newOrderForm.planType && getFilteredOffers().length === 0" class="text-center py-8">
+              <svg class="w-12 h-12 text-gray-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+              </svg>
+              <p class="text-gray-400 text-sm">No special offers available for the selected plan</p>
+            </div>
+          </div>
+
+          <!-- Payment Details Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              Payment Details
+            </h3>
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gray-700 rounded-lg p-4">
+                  <label class="text-xs text-gray-400 uppercase tracking-wider">Plan Price</label>
+                  <p class="text-white font-semibold text-lg mt-1">{{ formatCurrency(getPlanPrice()) }}</p>
+                </div>
+                <div class="bg-gray-700 rounded-lg p-4">
+                  <label class="text-xs text-gray-400 uppercase tracking-wider">Addons Price</label>
+                  <p class="text-white font-semibold text-lg mt-1">{{ formatCurrency(getAddonsPrice()) }}</p>
+                </div>
+                <div class="bg-gray-700 rounded-lg p-4">
+                  <label class="text-xs text-gray-400 uppercase tracking-wider">Offer Price</label>
+                  <p class="text-white font-semibold text-lg mt-1">{{ formatCurrency(getTotalBeforeDiscount()) }}</p>
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Discount</label>
+                  <input
+                    type="number"
+                    [(ngModel)]="newOrderForm.offerPrice"
+                    [placeholder]="getTotalBeforeDiscount().toString()"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Renewal Price</label>
+                  <input
+                    type="number"
+                    [(ngModel)]="newOrderForm.renewalPrice"
+                    [placeholder]="getTotalBeforeDiscount().toString()"
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+              </div>
+              <div class="bg-green-900 bg-opacity-30 border border-green-700 rounded-lg p-4">
+                <label class="text-xs text-green-400 uppercase tracking-wider">Offer Price</label>
+                <p class="text-green-400 font-bold text-xl mt-1">{{ formatCurrency(getCalculatedDiscount()) }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Link Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700" *ngIf="paymentLinkGenerated">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+              </svg>
+              Payment Link Generated
+            </h3>
+            <div class="flex gap-3">
+              <input
+                type="text"
+                [value]="generatedPaymentLink"
+                readonly
+                class="flex-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white font-mono text-sm"
+              />
+              <button
+                (click)="copyPaymentLink()"
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-sm text-gray-400 mt-2">Share this link with your client to complete the payment</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-between gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <button
+          (click)="closeNewOrderModal()"
+          class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+        >
+          Cancel
+        </button>
+        <div class="flex gap-3">
+          <button
+            *ngIf="!paymentLinkGenerated"
+            (click)="generatePaymentLink()"
+            [disabled]="isPaymentLinkButtonDisabled()"
+            [class.opacity-50]="isPaymentLinkButtonDisabled()"
+            [class.cursor-not-allowed]="isPaymentLinkButtonDisabled()"
+            class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium disabled:hover:bg-blue-600"
+          >
+            Generate Payment Link
+          </button>
+          <button
+            *ngIf="paymentLinkGenerated"
+            (click)="completeOrder()"
+            class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-medium"
+          >
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Dialog Modal -->
+  <div 
+    *ngIf="showErrorDialog"
+    class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeErrorDialog()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-md w-full border border-gray-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700">
+        <h2 class="text-xl font-bold text-white">{{ errorTitle }}</h2>
+        <button
+          (click)="closeErrorDialog()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6">
+        <p class="text-gray-300">{{ errorMessage }}</p>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <button
+          (click)="closeErrorDialog()"
+          class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deactivate Confirmation Modal -->
+  <div 
+    *ngIf="showDeleteConfirmModal"
+    class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeDeleteConfirmModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-md w-full border border-orange-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700 bg-orange-900 bg-opacity-20">
+        <h2 class="text-xl font-bold text-white">Confirm Deactivation</h2>
+        <button
+          (click)="closeDeleteConfirmModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0">
+            <svg class="w-12 h-12 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-white font-medium mb-2">Are you sure you want to deactivate this order?</p>
+            <p class="text-gray-400 text-sm" *ngIf="orderToDelete">
+              Order for <span class="font-semibold">{{ orderToDelete.clientDetails.businessName }}</span> will be marked as deactivated.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <button
+          (click)="closeDeleteConfirmModal()"
+          class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="confirmDeleteOrder()"
+          class="px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors font-medium"
+        >
+          Deactivate
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Addon Modal -->
+  <div 
+    *ngIf="showAddAddonModal"
+    class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeAddAddonModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-md w-full border border-gray-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700">
+        <h2 class="text-xl font-bold text-white">Add New Addon</h2>
+        <button
+          (click)="closeAddAddonModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Addon Name *</label>
+          <input
+            type="text"
+            [(ngModel)]="newAddon.name"
+            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            placeholder="e.g., Premium Support"
+          />
+        </div>
+        <div>
+          <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Price (₹) *</label>
+          <input
+            type="number"
+            [(ngModel)]="newAddon.price"
+            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            placeholder="e.g., 15000"
+          />
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <button
+          (click)="closeAddAddonModal()"
+          class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="addNewAddon()"
+          class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+        >
+          Add Addon
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Offer Modal -->
+  <div 
+    *ngIf="showAddOfferModal"
+    class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeAddOfferModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-md w-full border border-gray-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700">
+        <h2 class="text-xl font-bold text-white">Add New Offer</h2>
+        <button
+          (click)="closeAddOfferModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Offer Name *</label>
+          <input
+            type="text"
+            [(ngModel)]="newOffer.name"
+            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            placeholder="e.g., 3 Months Free"
+          />
+        </div>
+        <div>
+          <label class="block text-xs text-gray-400 uppercase tracking-wider mb-2">Free Months</label>
+          <input
+            type="number"
+            [(ngModel)]="newOffer.freeMonths"
+            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            placeholder="e.g., 3"
+          />
+          <p class="text-xs text-gray-500 mt-1">Enter 0 if this offer doesn't include free months</p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <button
+          (click)="closeAddOfferModal()"
+          class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="addNewOffer()"
+          class="px-6 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors font-medium"
+        >
+          Add Offer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Manage Plans Modal -->
+  <div 
+    *ngIf="showManagePlansModal"
+    class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeManagePlansModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-4xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700 sticky top-0 bg-gray-900 z-10">
+        <h2 class="text-xl font-bold text-white">Manage Plans</h2>
+        <button
+          (click)="closeManagePlansModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6">
+        <div class="mb-4">
+          <button
+            (click)="openPlanFormModal()"
+            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+          >
+            + Add New Plan
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div
+            *ngFor="let plan of availablePlans"
+            class="bg-gray-800 rounded-lg p-4 border border-gray-700"
+          >
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <h3 class="text-white font-semibold text-lg">{{ plan.displayName }}</h3>
+                <p class="text-gray-400 text-sm mt-1">{{ plan.duration }} months</p>
+                <p class="text-green-400 font-semibold mt-2">{{ formatCurrency(plan.price) }}</p>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  (click)="editPlan(plan)"
+                  class="p-2 text-blue-400 hover:text-blue-300 transition-colors"
+                  title="Edit"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                  </svg>
+                </button>
+                <button
+                  (click)="deletePlan(plan.id)"
+                  class="p-2 text-red-400 hover:text-red-300 transition-colors"
+                  title="Delete"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plan Form Modal -->
+  <div 
+    *ngIf="showPlanFormModal"
+    class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closePlanFormModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-lg w-full border border-gray-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700">
+        <h2 class="text-xl font-bold text-white">{{ isEditingPlan ? 'Edit Plan' : 'Add New Plan' }}</h2>
+        <button
+          (click)="closePlanFormModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Plan Name *</label>
+          <input
+            type="text"
+            [(ngModel)]="planForm.displayName"
+            placeholder="e.g., Quarterly Plan"
+            class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Duration (months) *</label>
+          <input
+            type="number"
+            [(ngModel)]="planForm.duration"
+            min="1"
+            placeholder="e.g., 3"
+            class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Price (₹) *</label>
+          <input
+            type="number"
+            [(ngModel)]="planForm.price"
+            min="0"
+            placeholder="e.g., 75000"
+            class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Plan Features</label>
+          
+          <!-- Add Feature Input -->
+          <div class="flex gap-2 mb-3">
+            <input
+              type="text"
+              [(ngModel)]="currentFeature"
+              (keypress)="onFeatureKeyPress($event)"
+              placeholder="Enter a feature (e.g., 24/7 Support)"
+              class="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            />
+            <button
+              type="button"
+              (click)="addFeature()"
+              class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-medium"
+            >
+              Add
+            </button>
+          </div>
+
+          <!-- Features List -->
+          <div class="space-y-2 max-h-32 overflow-y-auto">
+            <div
+              *ngFor="let feature of planForm.features; let i = index"
+              class="flex items-center justify-between px-3 py-2 bg-gray-700 rounded-lg"
+            >
+              <span class="text-white text-sm flex-1">{{ feature }}</span>
+              <button
+                type="button"
+                (click)="removeFeature(i)"
+                class="ml-2 p-1 text-red-400 hover:text-red-300 transition-colors"
+                title="Remove feature"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div *ngIf="!planForm.features || planForm.features.length === 0" class="text-gray-400 text-sm text-center py-4">
+              No features added yet. Add features to describe what this plan includes.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700">
+        <button
+          (click)="closePlanFormModal()"
+          class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="savePlan()"
+          class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+        >
+          {{ isEditingPlan ? 'Update' : 'Create' }} Plan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Addon Form Modal -->
+  <div 
+    *ngIf="showAddonFormModal"
+    class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeAddAddonModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-md w-full border border-gray-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700">
+        <h2 class="text-xl font-bold text-white">{{ isEditingAddon ? 'Edit Addon' : 'Add New Addon' }}</h2>
+        <button
+          (click)="closeAddAddonModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Addon Name *</label>
+          <input
+            type="text"
+            [(ngModel)]="addonForm.displayName"
+            placeholder="e.g., Priority Support"
+            class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Price (₹) *</label>
+          <input
+            type="number"
+            [(ngModel)]="addonForm.price"
+            min="0"
+            placeholder="e.g., 25000"
+            class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Description</label>
+          <textarea
+            [(ngModel)]="addonForm.description"
+            placeholder="Optional description"
+            rows="3"
+            class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          ></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Applicable Plans</label>
+          <div class="space-y-2">
+            <label
+              *ngFor="let plan of availablePlans"
+              class="flex items-center gap-3 px-3 py-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition-colors"
+            >
+              <input
+                type="checkbox"
+                [checked]="isAddonPlanSelected(plan.name)"
+                (change)="toggleAddonPlan(plan.name)"
+                class="w-4 h-4 text-blue-600"
+              />
+              <span class="text-white text-sm">{{ plan.displayName }}</span>
+            </label>
+            <div class="text-xs text-gray-400 mt-2">
+              Leave unchecked to make this addon available for all plans
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700">
+        <button
+          (click)="closeAddAddonModal()"
+          class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="saveAddon()"
+          class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+        >
+          {{ isEditingAddon ? 'Update' : 'Create' }} Addon
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offer Form Modal -->
+  <div 
+    *ngIf="showOfferFormModal"
+    class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeAddOfferModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-md w-full border border-gray-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700">
+        <h2 class="text-xl font-bold text-white">{{ isEditingOffer ? 'Edit Special Offer' : 'Add New Special Offer' }}</h2>
+        <button
+          (click)="closeAddOfferModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Offer Name *</label>
+          <input
+            type="text"
+            [(ngModel)]="offerForm.displayName"
+            placeholder="e.g., 2 Months Free Plan"
+            class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Free Months</label>
+          <input
+            type="number"
+            [(ngModel)]="offerForm.freeMonths"
+            min="0"
+            placeholder="e.g., 2"
+            class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Discount Percentage (%)</label>
+          <input
+            type="number"
+            [(ngModel)]="offerForm.discountPercentage"
+            min="0"
+            max="100"
+            placeholder="e.g., 10"
+            class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Description</label>
+          <textarea
+            [(ngModel)]="offerForm.description"
+            placeholder="Optional description"
+            rows="3"
+            class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          ></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">Applicable Plans</label>
+          <div class="space-y-2">
+            <label
+              *ngFor="let plan of availablePlans"
+              class="flex items-center gap-3 px-3 py-2 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition-colors"
+            >
+              <input
+                type="checkbox"
+                [checked]="isOfferPlanSelected(plan.name)"
+                (change)="toggleOfferPlan(plan.name)"
+                class="w-4 h-4 text-pink-600"
+              />
+              <span class="text-white text-sm">{{ plan.displayName }}</span>
+            </label>
+            <div class="text-xs text-gray-400 mt-2">
+              Leave unchecked to make this offer available for all plans
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700">
+        <button
+          (click)="closeAddOfferModal()"
+          class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="saveOffer()"
+          class="px-6 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors font-medium"
+        >
+          {{ isEditingOffer ? 'Update' : 'Create' }} Offer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Delete Plan Confirmation Modal -->
+  <div 
+    *ngIf="showDeletePlanConfirmModal"
+    class="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeDeletePlanConfirmModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-md w-full border border-red-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700 bg-red-900 bg-opacity-20">
+        <h2 class="text-xl font-bold text-white">Confirm Plan Deletion</h2>
+        <button
+          (click)="closeDeletePlanConfirmModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0">
+            <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-white font-medium mb-2">Are you sure you want to delete this plan?</p>
+            <p class="text-gray-400 text-sm" *ngIf="planToDelete">
+              Plan <span class="font-semibold text-white">{{ planToDelete.displayName }}</span> 
+              <span *ngIf="planToDelete.duration">({{ planToDelete.duration }} months)</span>
+              <span *ngIf="planToDelete.price">, ₹{{ planToDelete.price | number:'1.0-0' }}</span>
+              will be permanently deleted.
+            </p>
+            <p class="text-yellow-400 text-sm mt-2">
+              ⚠️ This action cannot be undone.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <button
+          (click)="closeDeletePlanConfirmModal()"
+          class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="confirmDeletePlan()"
+          class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium"
+        >
+          Delete Plan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Addon Confirmation Modal -->
+  <div 
+    *ngIf="showDeleteAddonConfirmModal"
+    class="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeDeleteAddonConfirmModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-md w-full border border-red-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700 bg-red-900 bg-opacity-20">
+        <h2 class="text-xl font-bold text-white">Confirm Addon Deletion</h2>
+        <button
+          (click)="closeDeleteAddonConfirmModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0">
+            <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-white font-medium mb-2">Are you sure you want to delete this addon?</p>
+            <p class="text-gray-400 text-sm" *ngIf="addonToDelete">
+              Addon <span class="font-semibold text-white">{{ addonToDelete.displayName }}</span> 
+              <span *ngIf="addonToDelete.price">(₹{{ addonToDelete.price | number:'1.0-0' }})</span>
+              will be permanently deleted.
+            </p>
+            <p class="text-yellow-400 text-sm mt-2">
+              ⚠️ This action cannot be undone.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <button
+          (click)="closeDeleteAddonConfirmModal()"
+          class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="confirmDeleteAddon()"
+          class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium"
+        >
+          Delete Addon
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Offer Confirmation Modal -->
+  <div 
+    *ngIf="showDeleteOfferConfirmModal"
+    class="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black bg-opacity-75"
+    (click)="closeDeleteOfferConfirmModal()"
+  >
+    <div 
+      class="bg-gray-900 rounded-lg shadow-2xl max-w-md w-full border border-red-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700 bg-red-900 bg-opacity-20">
+        <h2 class="text-xl font-bold text-white">Confirm Offer Deletion</h2>
+        <button
+          (click)="closeDeleteOfferConfirmModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0">
+            <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-white font-medium mb-2">Are you sure you want to delete this special offer?</p>
+            <p class="text-gray-400 text-sm" *ngIf="offerToDelete">
+              Offer <span class="font-semibold text-white">{{ offerToDelete.displayName }}</span> 
+              <span *ngIf="offerToDelete.freeMonths > 0">({{ offerToDelete.freeMonths }} free months)</span>
+              <span *ngIf="offerToDelete.discountPercentage > 0">({{ offerToDelete.discountPercentage }}% discount)</span>
+              will be permanently deleted.
+            </p>
+            <p class="text-yellow-400 text-sm mt-2">
+              ⚠️ This action cannot be undone.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800">
+        <button
+          (click)="closeDeleteOfferConfirmModal()"
+          class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="confirmDeleteOffer()"
+          class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium"
+        >
+          Delete Offer
+        </button>
+      </div>
+    </div>
+  </div>

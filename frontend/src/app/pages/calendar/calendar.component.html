@@ -1,0 +1,427 @@
+<div class="min-h-screen bg-black">
+  <!-- Floating Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-900 border-b border-gray-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Left: Title -->
+        <h1 class="text-xl font-bold text-white">Vibgyor Payment Gateway</h1>
+        
+        <!-- Center: Navigation Pages -->
+        <div class="flex items-center gap-4">
+          <button
+            (click)="navigateToDashboard()"
+            class="px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+          >
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+              </svg>
+              <span>Dashboard</span>
+            </div>
+          </button>
+          <button
+            class="px-4 py-2 text-white bg-blue-600 rounded-lg"
+          >
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span>Calendar</span>
+            </div>
+          </button>
+        </div>
+        
+        <!-- Right: Logout Button -->
+        <button
+          (click)="logout()"
+          class="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-all duration-200"
+          title="Logout"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+          </svg>
+          Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content with top padding for fixed navbar -->
+  <div class="pt-32 p-6">
+    <div class="max-w-7xl mx-auto">
+      <!-- Calendar Header -->
+      <div class="mb-6">
+        <h2 class="text-3xl font-bold text-white mb-2">Renewal Calendar</h2>
+        <p class="text-gray-400">Track upcoming subscription renewals</p>
+      </div>
+
+      <!-- Calendar Card -->
+      <div class="bg-gray-900 rounded-lg shadow-xl border border-gray-800 p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-4">
+            <button
+              (click)="previousMonth()"
+              class="p-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+              </svg>
+            </button>
+            <h3 class="text-2xl font-bold text-white min-w-[200px] text-center">{{ getMonthName() }}</h3>
+            <button
+              (click)="nextMonth()"
+              class="p-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Legend -->
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 bg-blue-900 border border-blue-500 rounded"></div>
+              <span class="text-sm text-gray-400">Today</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 bg-green-900 border border-green-500 rounded"></div>
+              <span class="text-sm text-gray-400">Renewed Today</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 bg-yellow-900 border border-yellow-500 rounded"></div>
+              <span class="text-sm text-gray-400">Due Renewals</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="grid grid-cols-7 gap-3">
+          <!-- Day Headers -->
+          <div class="text-center text-sm font-semibold text-gray-400 py-3">Sunday</div>
+          <div class="text-center text-sm font-semibold text-gray-400 py-3">Monday</div>
+          <div class="text-center text-sm font-semibold text-gray-400 py-3">Tuesday</div>
+          <div class="text-center text-sm font-semibold text-gray-400 py-3">Wednesday</div>
+          <div class="text-center text-sm font-semibold text-gray-400 py-3">Thursday</div>
+          <div class="text-center text-sm font-semibold text-gray-400 py-3">Friday</div>
+          <div class="text-center text-sm font-semibold text-gray-400 py-3">Saturday</div>
+
+          <!-- Calendar Days -->
+          <div
+            *ngFor="let day of calendarDays"
+            class="min-h-[120px] p-3 rounded-lg border transition-all relative group cursor-pointer"
+            [class.border-gray-700]="day.date && !isToday(day.date) && day.renewals.length === 0 && !hasRenewedToday(day.date)"
+            [class.bg-gray-800]="day.date && !isToday(day.date) && day.renewals.length === 0 && !hasRenewedToday(day.date)"
+            [class.border-green-500]="day.date && !isToday(day.date) && hasRenewedToday(day.date)"
+            [class.bg-green-900]="day.date && !isToday(day.date) && hasRenewedToday(day.date)"
+            [class.bg-opacity-30]="day.date && !isToday(day.date) && hasRenewedToday(day.date)"
+            [class.border-yellow-500]="day.date && !isToday(day.date) && day.renewals.length > 0 && !hasRenewedToday(day.date)"
+            [class.bg-yellow-900]="day.date && !isToday(day.date) && day.renewals.length > 0 && !hasRenewedToday(day.date)"
+            [class.bg-opacity-30]="day.date && !isToday(day.date) && day.renewals.length > 0 && !hasRenewedToday(day.date)"
+            [class.border-blue-500]="day.date && isToday(day.date)"
+            [class.bg-blue-900]="day.date && isToday(day.date)"
+            [class.bg-opacity-20]="day.date && isToday(day.date)"
+            [class.border-transparent]="!day.date"
+            [class.bg-transparent]="!day.date"
+            [class.hover:shadow-xl]="day.date"
+            [class.hover:scale-105]="day.date && (day.renewals.length > 0 || hasRenewedToday(day.date))"
+            [class.hover:border-green-400]="day.date && hasRenewedToday(day.date)"
+            [class.hover:border-yellow-400]="day.date && day.renewals.length > 0 && !hasRenewedToday(day.date)"
+          >
+            <div *ngIf="day.date" class="flex flex-col h-full">
+              <div class="flex items-center justify-between mb-2">
+                <div class="text-sm font-bold"
+                     [class.text-white]="day.date && day.renewals.length === 0 && !hasRenewedToday(day.date)"
+                     [class.text-green-300]="day.date && hasRenewedToday(day.date)"
+                     [class.text-yellow-300]="day.date && day.renewals.length > 0 && !isToday(day.date) && !hasRenewedToday(day.date)"
+                     [class.text-blue-400]="isToday(day.date)">
+                  {{ day.day }}
+                </div>
+                <div *ngIf="hasRenewedToday(day.date)" 
+                     class="px-2.5 py-1 bg-green-500 text-gray-900 text-xs font-bold rounded-full shadow-lg animate-pulse">
+                  {{ getRenewedTodayForDate(day.date).length }}
+                </div>
+                <div *ngIf="day.renewals.length > 0 && !hasRenewedToday(day.date)" 
+                     class="px-2.5 py-1 bg-yellow-500 text-gray-900 text-xs font-bold rounded-full shadow-lg animate-pulse">
+                  {{ day.renewals.length }}
+                </div>
+              </div>
+              <div class="flex-1 space-y-1">
+                <!-- Show renewed today first in green -->
+                <div
+                  *ngFor="let renewal of getRenewedTodayForDate(day.date).slice(0, 2)"
+                  class="text-xs px-2 py-1.5 bg-green-800 bg-opacity-60 text-green-100 rounded truncate hover:bg-green-700 transition-colors border border-green-600"
+                  [title]="renewal.clientDetails.businessName + ' (Renewed Today)'"
+                >
+                  ✓ {{ renewal.clientDetails.businessName }}
+                </div>
+                <!-- Then show due renewals in yellow -->
+                <div
+                  *ngFor="let renewal of day.renewals.slice(0, hasRenewedToday(day.date) ? 0 : 2)"
+                  class="text-xs px-2 py-1.5 bg-yellow-800 bg-opacity-60 text-yellow-100 rounded truncate hover:bg-yellow-700 transition-colors border border-yellow-600"
+                  [title]="renewal.clientDetails.businessName"
+                >
+                  {{ renewal.clientDetails.businessName }}
+                </div>
+                <div
+                  *ngIf="(getRenewedTodayForDate(day.date).length + day.renewals.length) > 2"
+                  class="text-xs px-2 py-1.5 bg-gray-700 text-gray-200 rounded text-center font-semibold border border-gray-600"
+                >
+                  +{{ (getRenewedTodayForDate(day.date).length + day.renewals.length) - 2 }} more
+                </div>
+              </div>
+            </div>
+
+            <!-- Enhanced Scrollable Tooltip -->
+            <div
+              *ngIf="day.date && (day.renewals.length > 0 || hasRenewedToday(day.date))"
+              class="absolute left-1/2 transform -translate-x-1/2 top-full mt-3 w-96 bg-gray-800 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto"
+              [class.border-2]="true"
+              [class.border-green-500]="hasRenewedToday(day.date)"
+              [class.border-yellow-500]="!hasRenewedToday(day.date)"
+              style="z-index: 9999;"
+            >
+              <!-- Tooltip Arrow -->
+              <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-800 border-t-2 border-l-2 rotate-45"
+                   [class.border-green-500]="hasRenewedToday(day.date)"
+                   [class.border-yellow-500]="!hasRenewedToday(day.date)"></div>
+              
+              <!-- Tooltip Header -->
+              <div class="text-white px-4 py-3 rounded-t-xl"
+                   [class.bg-gradient-to-r]="true"
+                   [class.from-green-600]="hasRenewedToday(day.date)"
+                   [class.to-green-500]="hasRenewedToday(day.date)"
+                   [class.from-yellow-600]="!hasRenewedToday(day.date)"
+                   [class.to-yellow-500]="!hasRenewedToday(day.date)">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="font-bold text-lg">{{ day.day }} {{ getMonthName().split(' ')[0] }}</span>
+                  </div>
+                  <span class="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm font-bold">
+                    {{ (getRenewedTodayForDate(day.date).length + day.renewals.length) }} Total
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Scrollable Renewals List -->
+              <div class="max-h-80 overflow-y-auto custom-scrollbar p-4 space-y-3">
+                <!-- Renewed Today Section -->
+                <div *ngIf="getRenewedTodayForDate(day.date).length > 0">
+                  <div class="flex items-center gap-2 mb-3 pb-2 border-b border-green-600">
+                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-green-400 font-bold text-sm">Renewed Today ({{ getRenewedTodayForDate(day.date).length }})</span>
+                  </div>
+                  <div
+                    *ngFor="let renewal of getRenewedTodayForDate(day.date); let i = index"
+                    class="bg-green-900 bg-opacity-40 rounded-lg p-4 hover:bg-green-800 hover:bg-opacity-50 transition-all duration-200 border border-green-600 hover:border-green-500 hover:shadow-lg mb-2"
+                  >
+                    <!-- Customer Number Badge -->
+                    <div class="flex items-start justify-between mb-2">
+                      <span class="px-2 py-1 bg-green-600 text-white text-xs font-bold rounded flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        #{{ i + 1 }}
+                      </span>
+                      <span 
+                        class="px-2 py-1 text-xs font-semibold rounded"
+                        [ngClass]="{
+                          'bg-green-900 text-green-300': renewal.planStatus === 'active',
+                          'bg-yellow-900 text-yellow-300': renewal.planStatus === 'dormant',
+                          'bg-red-900 text-red-300': renewal.planStatus === 'inactive'
+                        }"
+                      >
+                        {{ renewal.planStatus | uppercase }}
+                      </span>
+                    </div>
+                    
+                    <!-- Customer Name -->
+                    <div class="text-white font-bold text-sm mb-1">
+                      {{ renewal.clientDetails.clientName }}
+                    </div>
+                    
+                    <!-- Business Name -->
+                    <div class="text-gray-300 text-xs mb-2 flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                      </svg>
+                      {{ renewal.clientDetails.businessName }}
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="text-gray-400 text-xs mb-3 flex items-center gap-1 truncate">
+                      <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                      </svg>
+                      {{ renewal.clientDetails.businessEmail }}
+                    </div>
+                    
+                    <!-- Plan and Price -->
+                    <div class="flex items-center justify-between pt-3 border-t border-green-700">
+                      <div class="flex items-center gap-1 text-gray-300 text-xs">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        {{ renewal.planDetails.planType }}
+                      </div>
+                      <div class="text-green-400 font-bold text-sm flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        ₹{{ renewal.paymentDetails.renewalPrice.toLocaleString('en-IN') }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Due Renewals Section -->
+                <div *ngIf="day.renewals.length > 0">
+                  <div *ngIf="getRenewedTodayForDate(day.date).length > 0" class="flex items-center gap-2 mb-3 pb-2 border-b border-yellow-600">
+                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-yellow-400 font-bold text-sm">Due Renewals ({{ day.renewals.length }})</span>
+                  </div>
+                  <div
+                    *ngFor="let renewal of day.renewals; let i = index"
+                    class="bg-gray-700 rounded-lg p-4 hover:bg-gray-650 transition-all duration-200 border border-gray-600 hover:border-yellow-500 hover:shadow-lg mb-2"
+                  >
+                    <!-- Customer Number Badge -->
+                    <div class="flex items-start justify-between mb-2">
+                      <span class="px-2 py-1 bg-yellow-600 text-white text-xs font-bold rounded">
+                        #{{ i + 1 + getRenewedTodayForDate(day.date).length }}
+                      </span>
+                      <span 
+                        class="px-2 py-1 text-xs font-semibold rounded"
+                        [ngClass]="{
+                          'bg-green-900 text-green-300': renewal.planStatus === 'active',
+                          'bg-yellow-900 text-yellow-300': renewal.planStatus === 'dormant',
+                          'bg-red-900 text-red-300': renewal.planStatus === 'inactive'
+                        }"
+                      >
+                        {{ renewal.planStatus | uppercase }}
+                      </span>
+                    </div>
+                    
+                    <!-- Customer Name -->
+                    <div class="text-white font-bold text-sm mb-1">
+                      {{ renewal.clientDetails.clientName }}
+                    </div>
+                    
+                    <!-- Business Name -->
+                    <div class="text-gray-300 text-xs mb-2 flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                      </svg>
+                      {{ renewal.clientDetails.businessName }}
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="text-gray-400 text-xs mb-3 flex items-center gap-1 truncate">
+                      <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                      </svg>
+                      {{ renewal.clientDetails.businessEmail }}
+                    </div>
+                    
+                    <!-- Plan and Price -->
+                    <div class="flex items-center justify-between pt-3 border-t border-gray-600">
+                      <div class="flex items-center gap-1 text-gray-300 text-xs">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        {{ renewal.planDetails.planType }}
+                      </div>
+                      <div class="text-green-400 font-bold text-sm flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        ₹{{ renewal.paymentDetails.renewalPrice.toLocaleString('en-IN') }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Tooltip Footer -->
+              <div class="bg-gray-750 px-4 py-3 rounded-b-xl border-t border-gray-700">
+                <div class="flex items-center justify-between text-xs text-gray-400">
+                  <span>Total Revenue:</span>
+                  <span class="text-green-400 font-bold text-sm">
+                    ₹{{ (calculateDayRevenue(day.renewals) + calculateDayRevenue(getRenewedTodayForDate(day.date))).toLocaleString('en-IN') }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="mt-6 pt-6 border-t border-gray-700">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-gray-800 rounded-lg p-4">
+              <div class="text-sm text-gray-400 mb-1">Total Renewals This Month</div>
+              <div class="text-2xl font-bold text-white">
+                {{ getTotalRenewals() }}
+              </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4">
+              <div class="text-sm text-gray-400 mb-1">Days with Renewals</div>
+              <div class="text-2xl font-bold text-white">
+                {{ getDaysWithRenewals() }}
+              </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4">
+              <div class="text-sm text-gray-400 mb-1">Busiest Day</div>
+              <div class="text-2xl font-bold text-white">
+                {{ getBusiestDayCount() }} renewals
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Custom Scrollbar Styles -->
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #374151;
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #EAB308;
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #F59E0B;
+  }
+
+  /* Smooth animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .group:hover > div[class*="opacity-0"] {
+    animation: fadeIn 0.3s ease-out;
+  }
+</style>

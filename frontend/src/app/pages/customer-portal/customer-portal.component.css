@@ -1,0 +1,137 @@
+/* Customer Portal Specific Styles */
+
+/* Smooth transitions for interactive elements */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom scrollbar for Activity Timeline - matching admin dashboard style */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #4B5563 #1F2937;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  display: block;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1F2937;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #4B5563;
+  border-radius: 4px;
+  border: 2px solid #1F2937;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #6B7280;
+}
+
+/* Custom scrollbar for tables */
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Dark mode scrollbar */
+.dark .overflow-x-auto::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.dark .overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+.dark .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Animation for loading spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hover effects for table rows */
+tbody tr {
+  transition: background-color 0.15s ease-in-out;
+}
+
+/* Card hover effects */
+.bg-white:hover,
+.dark .dark\:bg-gray-800:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Status badge animations */
+.inline-flex {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Toggle switch animation */
+.relative.inline-flex span {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Gradient text effect */
+.bg-gradient-to-r {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Print styles for invoices */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white;
+  }
+  
+  .bg-gray-50 {
+    background: white;
+  }
+}
