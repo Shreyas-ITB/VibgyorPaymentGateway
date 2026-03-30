@@ -354,7 +354,7 @@ export class InvoiceService {
       .fillColor('#94A3B8')
       .fontSize(8)
       .font('Helvetica')
-      .text('Vibgyor Payment Gateway | www.vibgyor.com | support@vibgyor.com', 50, 785, { align: 'center', width: 495 });
+      .text('Vibgyor Payment Gateway | www.vibgyor.co.in | support@vibgyor.co.in', 50, 785, { align: 'center', width: 495 });
   }
 
   /**
